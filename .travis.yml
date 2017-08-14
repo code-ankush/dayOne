@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - "5.0.3"
+script:
+  - echo "Deploying!!!"
+after_success:
+  - firebase deploy --token $FIREBASE_TOKEN
