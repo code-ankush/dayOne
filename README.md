@@ -1,2 +1,2 @@
 # dayOne
-help teacher in creating question paper
+Help teacher in creating question paper
