@@ -1,9 +1,14 @@
 language: node_js
 node_js:
   - "8.1"
-script:
-  - cd functions
-before_script:
+before_install:
+install:
   - npm install -g firebase-tools
-after_success:
+script:
   - npm install
+before_script:
+  - cd functions
+after_script:
+  - cd ../
+after_success:
+  - firebase deploy --token $FIREBASE_TOKEN
