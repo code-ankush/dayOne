@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
+    <script>
+      var config = {
+        apiKey: "AIzaSyB2hvnT8gJLX6iqaGa66WOiulE-kg-Geg0",
+        databaseURL: "https://understand-it.firebaseio.com",
+        projectId: "understand-it",
+        messagingSenderId: "375590815659"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <style media="screen">
+      body { 
+        background: #ECEFF1;
+        color: rgba(0,0,0,0.87);
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #message {
+        background: white;
+        max-width: 360px; 
+        padding: 32px 24px;
+        border-radius: 2px 6px 6px 2px;
+      }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 16px; }
+      button,input[type="submit"]{ display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 12px 16px; border: none; outline-color: rgba(0,0,0,0);}
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 420px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+        #message { border-top: 0px !important }
+      }
+        #message { border-top: 12px solid #ffa100; }
+      input{
+        border:none;
+        outline:none;
+        border-bottom: 1px solid #039be5;
+        caret-color: #039be5;
+      }
+      input[type="text"]{
+        font-size: 16px;
+        width: 100%;
+      }
+      textarea{
+        width: 95%;
+        height: 132px;
+        outline:none;
+        border: 1px solid #039be5;
+        caret-color: #039be5;
+        resize: none;
+        padding: 6px;
+        font-size:20px;
+      }
+      textarea:focus,input[type="text"]:focus{
+        border-color: #ffa100;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h2>Welcome</h2>
+      <h1>Notification with Firebase Functions</h1>
+      <button onclick="enableIt()" id="ableIt">enable Notification</button>
+      <br>
+      <p>And the msg goes here...</p>
+      <form onsubmit="return false">
+        <h2>Title:</h2>
+        <input type="text" name="msg" id="msgTitle" autocomplete="off" spellcheck="false">
+        <br>
+        <br>
+        <h2>Body:</h2>
+        <textarea type="text" name="msg" id="msgBody" autocomplete="off" spellcheck="false"></textarea>
+        <br>
+        <br>
+        <input type="submit" value="Send" onclick="sendMsg()" style="float: right;">
+      </form>
+    </div>
+
+  </body>
+  <script src="1.js"></script>
+  <script type="text/javascript">
+    function sendMsg() {
+      let t = document.querySelector('#msgTitle').value;
+      let b = document.querySelector('#msgBody').value;
+      let f = localStorage.getItem('fcmToken');
+      if (f !== "") {
+       firebase.database().ref('/projects').child("notify/messageId").push({title:t,body:b,token:f}).then(_=>console.log("Msg is coming"));
+      }
+    }
+  </script>
+</html>
