@@ -5,6 +5,8 @@ admin.initializeApp(functions.config().firebase);
 const express = require('express');
 
 const app = express();
+const userFriendlyData = _=> decodeURIComponent(_.replace("%2E","."));
+const firebaseFriendlyData = _=> encodeURIComponent(_).replace(/\./g, '%2E');
 
 
 // var allTemplates = {projects:{notify:``}}
@@ -22,23 +24,7 @@ const app = express();
 
 // notification project
 exports.project_notify = functions.database.ref('/projects/notify/messageId/{messageId}').onWrite(event => {
-  const snapshot = event.data;
-
-  const title = snapshot.val().title;
-  const body = snapshot.val().body;
-  const token = snapshot.val().token;
-  const payload = {
-    notification: {
-      title: title,
-      body: body
-    }
-  };
-  var options = {
-		  priority: "high",
-		  timeToLive: 3
-		};
-
-  return admin.messaging().sendToDevice(token, payload,options).then(_=>{
-  	console.log(snapshot.val().title,"is successful")
-  })
+  firebaseAdmin.database().ref("projects").child("notify/functions/project_notify").once("value",snap=>{
+    eval(userFriendlyData(snap.val()));
+  });
 });

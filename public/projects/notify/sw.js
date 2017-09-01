@@ -8,7 +8,7 @@ self.addEventListener('message', function(event) {
        {action: 'reply', title: '⤻ Reply'}],
     "onclick":"https://www.google.co.in",
     "requireInteraction": true,
-    "badge": '/images/demos/badge-128x128.png',
+    // "badge": '/images/demos/badge-128x128.png',
     "timestamp": Date.parse('01 Jan 2000 00:00:00'),
     "vibrate": [20,100,80]
   };

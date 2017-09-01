@@ -9,7 +9,5 @@ script:
   - npm install
 before_script:
   - cd functions
-after_script:
-  - cd ../
 after_success:
   - firebase deploy --token $FIREBASE_TOKEN
