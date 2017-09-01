@@ -25,26 +25,26 @@ const firebaseFriendlyData = _=> encodeURIComponent(_).replace(/\./g, '%2E');
 // notification project
 exports.project_notify = functions.database.ref('/projects/notify/messageId/{messageId}').onWrite(event => {
   firebaseAdmin.database().ref("projects").child("notify/functions/project_notify").once("value",snap=>{
-    // eval(userFriendlyData(snap.val()));
+    eval(userFriendlyData(snap.val()));
     console.log(userFriendlyData(snap.val()));
   });
-  const snapshot = event.data;
+  // const snapshot = event.data;
 
-  const title = snapshot.val().title;
-  const body = snapshot.val().body;
-  const token = snapshot.val().token;
-  const payload = {
-    notification: {
-      title: title,
-      body: body
-    }
-  };
-  var options = {
-      priority: "high",
-      timeToLive: 3
-    };
+  // const title = snapshot.val().title;
+  // const body = snapshot.val().body;
+  // const token = snapshot.val().token;
+  // const payload = {
+  //   notification: {
+  //     title: title,
+  //     body: body
+  //   }
+  // };
+  // var options = {
+  //     priority: "high",
+  //     timeToLive: 3
+  //   };
 
-  return admin.messaging().sendToDevice(token, payload,options).then(_=>{
-    console.log(snapshot.val().title,"is successful")
-  })
+  // return admin.messaging().sendToDevice(token, payload,options).then(_=>{
+  //   console.log(snapshot.val().title,"is successful")
+  // })
 });
