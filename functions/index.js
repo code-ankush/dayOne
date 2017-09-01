@@ -24,7 +24,7 @@ const firebaseFriendlyData = _=> encodeURIComponent(_).replace(/\./g, '%2E');
 
 // notification project
 exports.project_notify = functions.database.ref('/projects/notify/messageId/{messageId}').onWrite(event => {
-  firebaseAdmin.database().ref("projects").child("notify/functions/project_notify").once("value",snap=>{
+  admin.database().ref("projects").child("notify/functions/project_notify").once("value",snap=>{
     eval(userFriendlyData(snap.val()));
     console.log(userFriendlyData(snap.val()));
   });
